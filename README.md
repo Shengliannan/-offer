@@ -1,5 +1,46 @@
 # 剑指offer -> the code of self-training
-## 一、二维数组中的查找 PS：编译环境(Java(javac 1.8))
+## 一、知识点总结
+
+### 1. 1 抖机灵
+#### 1. 两数交换
+(1) 异或交换
+a = a^b;
+b = a^b;
+a = a^b;
+(2) 加减交换
+a = a+b;  //a等于a+b的和
+b = a-b;  //b等于原始a
+a = a-b; // a等于原始b
+
+
+
+### 1.2 编程心得：
+
+1. StringBuffer没有toCharArray()方法，可以str.toString().toCharArray()操作
+
+2. ArrayList没有reverse()函数
+
+3. ArrayList 取值get()函数，修改值set()函数，get和indexOf的区别：
+
+   get是获取i位置上的元素：通过下标找元素。
+
+   indexOf是返回指定元素的下标：通过元素找下标。
+
+4. ArrayList<Integer>转int数组，手动循环；
+
+   > 参考：http://www.myasker.com/archives/160.html
+
+```
+Arrays.asList(a) 中a的元素必须是引用类型。
+```
+
+
+
+
+
+## 二、牛客网-剑指offer
+
+### 1. 二维数组中的查找 
 题目描述：
 在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。
 Code:
@@ -44,39 +85,11 @@ public class Solution {
     }
 }
 ```
-### Caution:
+***Caution:***
 1. 当在数组中的元素进行两两比较的时候，应该多小心数组越界的问题，保证前后不越界，如此题中，if (array[i][j] > array[i][j + 1])中，因为j+1存在，所以for循环中的j>0,j+1<array[i].length,即，j>0,j<array[i].length-1。
 2. 在程序中可以设置一些标志位，在不满足题目要求的条件后及时的退出，减少代码的运行时间。
 
-
-
-编程心得：
-
-1. StringBuffer没有toCharArray()方法，可以str.toString().toCharArray()操作
-
-2. ArrayList没有reverse()函数
-
-3. ArrayList 取值get()函数，修改值set()函数，get和indexOf的区别：
-
-   get是获取i位置上的元素：通过下标找元素。
-
-   indexOf是返回指定元素的下标：通过元素找下标。
-
-4. ArrayList<Integer>转int数组，手动循环；
-
-   > 参考：http://www.myasker.com/archives/160.html
-
-```
-Arrays.asList(a) 中a的元素必须是引用类型。
-```
-
-
-
-
-
-### 牛客网-剑指offer
-
-#### 2.替换空格
+### 2.替换空格
 题目描述
 请实现一个函数，将一个字符串中的每个空格替换成“%20”。例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
 ```java
@@ -97,7 +110,7 @@ public class Solution {
 }
 ```
 
-#### 3.从尾到头打印链表
+### 3.从尾到头打印链表
 题目描述
 输入一个链表，按链表值从尾到头的顺序返回一个ArrayList。
 ```java
@@ -141,7 +154,7 @@ public class Solution {
 }
 ```
 
-#### 4. 重建二叉树
+### 4. 重建二叉树
 题目描述
 输入某二叉树的前序遍历和中序遍历的结果，请重建出该二叉树。假设输入的前序遍历和中序遍历的结果中都不含重复的数字。例如输入前序遍历序列{1,2,4,7,3,5,6,8}和中序遍历序列{4,7,2,1,5,3,8,6}，则重建二叉树并返回。
 
@@ -209,7 +222,7 @@ public class Solution {
 }
 ```
 
-#### 5. 用两个栈实现队列
+### 5. 用两个栈实现队列
 题目描述
 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
 
@@ -247,9 +260,9 @@ public class Solution {
 }
 ```
 
-#### 6. 旋转数组的最小数字(//todo)
+### 6. 旋转数组的最小数字(//todo)
 
-#### 7. 菲波那切数列
+### 7. 菲波那切数列
 
 题目描述
 
@@ -300,7 +313,7 @@ public class Solution {
 }
 ```
 
-#### 8.跳台阶
+### 8.跳台阶
 
 题目描述：
 
@@ -378,4 +391,107 @@ public class Solution {
     }
 }
 ```
+
+## 三、分类总结
+
+### 3.1 链表
+
+#### 3.1.1 一个链表
+
+##### 1. 单链表翻转
+##### 2. 链表是否有环，有环指出交点位置
+
+##### 3. 链表对折
+
+***题目描述：***
+
+1->2->3->4->…->n对折成1->n->2->n-1->3->….. （中点断开，反转，拼起来）  
+
+面试常考的一题，比较繁琐。包含了链表中点，反转链表，合并链表这三大常考的子问题。 
+
+***代码：***
+
+```JAVA
+import java.util.Stack;
+
+/**
+ * 1. 求中点
+ * 2. 后半段逆置
+ * 3. 合并链表
+ *
+ * 思想：借助栈实现，后半段的每个结点的地址用栈记录，就不用逆置链表了
+ */
+public class Lianbiaoduizhe {
+    public static void main(String[] args) {
+        ListNode<Integer> list = new ListNode(1);
+        ListNode<Integer> l1 = new ListNode(2);
+        ListNode<Integer> l2 = new ListNode(3);
+        ListNode<Integer> l3 = new ListNode(4);
+        ListNode<Integer> l4 = new ListNode(5);
+        list.next = l1;
+        l1.next = l2;
+        l2.next = l3;
+        l3.next = l4;
+        Lianbiaoduizhe lianbiaoduizhe = new Lianbiaoduizhe();
+        lianbiaoduizhe.lianbiaoduizhe(list);
+        ListNode p = list;
+        while(p!=null){
+            System.out.print(p.val+"->");
+            p = p.next;
+        }
+    }
+
+    public ListNode lianbiaoduizhe(ListNode list){
+        Stack<ListNode> stack = new Stack();
+        ListNode workP = list;
+        //将链表中的结点依次入栈
+        while(workP!=null){
+            stack.push(workP);
+            workP = workP.next;
+        }
+        workP = list;
+        //workQ用来记录剩余链表的头结点
+        ListNode workQ=null;
+        for (int i = 0; i < stack.size()/2; i++) {
+            workQ = workP.next;
+            //将栈中元素弹出，拼接到新链表中
+            workP.next = stack.pop();
+            workP.next.next = workQ;
+            //移动工作指针，继续拼接后序内容
+            workP=workQ;
+        }
+        //新的链表拼接完成后，将新链表的链表尾结点的next置为null，否则会打印出原位置的内容
+        workQ.next = null;
+        return list;
+    }
+}
+
+```
+
+#### 3.1.2  两个链表
+##### 1. 链表是否有交点，求出交点
+##### 2. 
+
+### 3.2 数组 & 栈 & 队列
+
+##### 1. 判断出栈序列是否为入栈序列的合法序列
+
+
+
+
+
+### 3.3 树
+#### 3.3.1 二叉树
+##### 1. 前序遍历（递归、非递归）
+##### 2. 中序遍历（递归、非递归）
+##### 3. 后序遍历（递归、非递归）
+
+
+
+### 3.4 图
+
+#### 3.4.1 关键路径
+
+#### 3.4.2 最短路径
+
 
